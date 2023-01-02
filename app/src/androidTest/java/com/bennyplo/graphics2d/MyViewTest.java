@@ -12,15 +12,14 @@ public class MyViewTest extends TestCase {
         };
         assertEquals(2, points[0].x);
         assertEquals(4, points[0].y);
-        Point [] r = MyView.affineTransformation(
+        MyView.transform(
                 points,
                 new double[][]{
                         {1,0,2},
                         {0,1,4}
                 });
-        assertNotNull(r);
-        assertEquals(1, r.length);
-        assertEquals(4, r[0].x);
-        assertEquals(8, r[0].y);
+        assertEquals(1, points.length);
+        assertEquals(4, points[0].x);
+        assertEquals(8, points[0].y);
     }
 }
