@@ -1,4 +1,4 @@
-package com.bennyplo.graphics2d;
+package com.bennyplo.android_mooc_graphics_3d;
 
 import org.junit.Test;
 
@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     @Test
-    public void addition_isCorrect() throws Exception {
+    public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
 }

@@ -1,4 +1,4 @@
-package com.bennyplo.graphics2d;
+package com.bennyplo.android_mooc_graphics_3d;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,9 +9,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-        //replace the view with my custom designed view
+        getSupportActionBar().hide();//hide the title bar
         mMyView=new MyView(this);
         setContentView(mMyView);
     }
-
 }
