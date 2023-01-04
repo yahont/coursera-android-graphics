@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.view.View;
 
 public class MyView extends View {
+    private enum Axis { X, Y, Z }
     private Paint redPaint; //paint object for drawing the lines
     private Coordinate[]cube_vertices;//the vertices of a 3D cube
     private Coordinate[]draw_cube_vertices;//the vertices for drawing a 3D cube
@@ -28,8 +29,12 @@ public class MyView extends View {
         cube_vertices[5] = new Coordinate(1, -1, 1, 1);
         cube_vertices[6] = new Coordinate(1, 1, -1, 1);
         cube_vertices[7] = new Coordinate(1, 1, 1, 1);
-        draw_cube_vertices=translate(cube_vertices,2,2,2);
-        draw_cube_vertices=scale(draw_cube_vertices,40,40,40);
+        draw_cube_vertices=rotate(cube_vertices, 80, Axis.Z);
+        draw_cube_vertices=rotate(draw_cube_vertices, 30, Axis.Y);
+        draw_cube_vertices=translate(draw_cube_vertices,2,2,2);
+        draw_cube_vertices=scale(draw_cube_vertices, 40,40,40);
+        //draw_cube_vertices=rotate(draw_cube_vertices, 45, Axis.Y);
+        //draw_cube_vertices=rotate(draw_cube_vertices, 45, Axis.X);
         thisview.invalidate();//update the view
     }
 
@@ -69,11 +74,12 @@ public class MyView extends View {
     //matrix and transformation functions
     public double []GetIdentityMatrix()
     {//return an 4x4 identity matrix
-        double []matrix=new double[16];
-        matrix[0]=1;matrix[1]=0;matrix[2]=0;matrix[3]=0;
-        matrix[4]=0;matrix[5]=1;matrix[6]=0;matrix[7]=0;
-        matrix[8]=0;matrix[9]=0;matrix[10]=1;matrix[11]=0;
-        matrix[12]=0;matrix[13]=0;matrix[14]=0;matrix[15]=1;
+        double [] matrix = {
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1,
+        };
         return matrix;
     }
     public Coordinate Transformation(Coordinate vertex,double []matrix)
@@ -118,6 +124,30 @@ public class MyView extends View {
         matrix[10]=sz;
         return Transformation(vertices,matrix);
     }
-
+    private Coordinate[] rotate(Coordinate[] vertices, double g, Axis axis) {
+        double radians = Math.toRadians(g);
+        double[] matrix = GetIdentityMatrix();
+        switch (axis) {
+            case X:
+                matrix[5]  =  Math.cos(radians);
+                matrix[6]  = -Math.sin(radians);
+                matrix[9]  =  Math.sin(radians);
+                matrix[10] =  Math.cos(radians);
+                break;
+            case Y:
+                matrix[0]  =  Math.cos(radians);
+                matrix[2]  =  Math.sin(radians);
+                matrix[8]  = -Math.sin(radians);
+                matrix[10] =  Math.cos(radians);
+                break;
+            case Z:
+                matrix[0] =  Math.cos(radians);
+                matrix[1] = -Math.sin(radians);
+                matrix[4] =  Math.sin(radians);
+                matrix[5] =  Math.cos(radians);
+                break;
+        }
+        return Transformation(vertices, matrix);
+    }
 
 }
