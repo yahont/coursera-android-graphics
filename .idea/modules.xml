@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/coursera-android-graphics.iml" filepath="$PROJECT_DIR$/.idea/modules/coursera-android-graphics.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/coursera-android-graphics.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/coursera-android-graphics.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/coursera-android-graphics.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/coursera-android-graphics.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/coursera-android-graphics.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/coursera-android-graphics.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/coursera-android-graphics.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/coursera-android-graphics.app.unitTest.iml" />
     </modules>
   </component>
 </project>
