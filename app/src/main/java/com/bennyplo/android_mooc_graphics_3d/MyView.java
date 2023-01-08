@@ -4,13 +4,18 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.View;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MyView extends View {
     private enum Axis { X, Y, Z }
     private Paint redPaint; //paint object for drawing the lines
     private Coordinate[]cube_vertices;//the vertices of a 3D cube
     private Coordinate[]draw_cube_vertices;//the vertices for drawing a 3D cube
+    private Timer spinTimer;
     public MyView(Context context) {
         super(context, null);
         final MyView thisview=this;
@@ -29,12 +34,17 @@ public class MyView extends View {
         cube_vertices[5] = new Coordinate(1, -1, 1, 1);
         cube_vertices[6] = new Coordinate(1, 1, -1, 1);
         cube_vertices[7] = new Coordinate(1, 1, 1, 1);
-        draw_cube_vertices=rotate(cube_vertices, 80, Axis.Z);
-        draw_cube_vertices=rotate(draw_cube_vertices, 30, Axis.Y);
-        draw_cube_vertices=translate(draw_cube_vertices,2,2,2);
-        draw_cube_vertices=scale(draw_cube_vertices, 40,40,40);
-        //draw_cube_vertices=rotate(draw_cube_vertices, 45, Axis.Y);
-        //draw_cube_vertices=rotate(draw_cube_vertices, 45, Axis.X);
+        spinTimer = new Timer();
+        cube_vertices=rotate(cube_vertices, 60, Axis.Z);
+        cube_vertices=rotate(cube_vertices, 90, Axis.Y);
+        spinTimer.schedule(new TimerTask() {
+                               @Override
+                               public void run() {
+                                   cube_vertices=rotate(cube_vertices, 2, Axis.X);
+                                   thisview.invalidate();
+                               }
+                           },
+                100, 25);
         thisview.invalidate();//update the view
     }
 
@@ -50,6 +60,9 @@ public class MyView extends View {
 
     private void DrawCube(Canvas canvas)
     {//draw a cube on the screen
+        Log.i("***Running***", "run: x="+cube_vertices[7].x);
+        draw_cube_vertices=translate(cube_vertices,6,6,0);
+        draw_cube_vertices=scale(draw_cube_vertices, 40,40,40);
         DrawLinePairs(canvas, draw_cube_vertices, 0, 1, redPaint);
         DrawLinePairs(canvas, draw_cube_vertices, 1, 3, redPaint);
         DrawLinePairs(canvas, draw_cube_vertices, 3, 2, redPaint);
