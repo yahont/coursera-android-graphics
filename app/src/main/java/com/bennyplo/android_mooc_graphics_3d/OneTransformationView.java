@@ -10,11 +10,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class OneTransformationView extends View {
-    private enum Axis {X,Y,Z};
+    private enum Axis {X,Y,Z}
     private final Paint edgePaint;
     private final double [][] transformationMatrix = buildIdentityMatrix();
-    private final double [][] finalTransformationMatrix = buildIdentityMatrix();
-    private final Timer rotationTimer = new Timer();
     private final Coordinate [][] cube = {
             {
                     new Coordinate(1,1,1,1),
@@ -35,14 +33,18 @@ public class OneTransformationView extends View {
         edgePaint.setStyle(Paint.Style.STROKE);
         edgePaint.setStrokeWidth(2);
         edgePaint.setColor(Color.RED);
-        translate(finalTransformationMatrix, 8, 8, 0);
-        scale(finalTransformationMatrix, 40, 40, 1);
+        translate(transformationMatrix, 8, 8, 0);
+        scale(transformationMatrix, 40, 40, 1);
+        Timer rotationTimer = new Timer();
         rotationTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                rotate(finalTransformationMatrix, 1, Axis.X);
-                rotate(finalTransformationMatrix, 1, Axis.Y);
-                rotate(finalTransformationMatrix, 1, Axis.Z);
+                rotate(transformationMatrix, 2, Axis.X);
+                // Gimbal lock. The cube rotates only around Z-axis
+                // Comment out the next line to see rotation around XY
+                // See https://en.wikipedia.org/wiki/Gimbal_lock#Loss_of_a_degree_of_freedom_with_Euler_angles
+                rotate(transformationMatrix, 90, Axis.Z);
+                rotate(transformationMatrix, 2, Axis.Y);
                 invalidate();
             }
         }, 100, 20);
@@ -67,9 +69,8 @@ public class OneTransformationView extends View {
         for (int i = 0; i < drawCube.length; i++)
             for (int j = 0; j < drawCube[i].length; j++) {
                 Coordinate o = cube[i][j];
-                transform(transformationMatrix, o);
                 drawCube[i][j] = new Coordinate(o.x, o.y, o.z, o.w);
-                transform(finalTransformationMatrix, drawCube[i][j]);
+                transform(transformationMatrix, drawCube[i][j]);
             }
         drawCube(canvas, drawCube);
     }
