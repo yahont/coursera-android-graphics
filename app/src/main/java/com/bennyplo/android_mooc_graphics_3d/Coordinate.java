@@ -1,8 +1,6 @@
 package com.bennyplo.android_mooc_graphics_3d;
-//*********************************************
-//* Homogeneous coordinate in 3D space
 
-public class Coordinate {
+class Coordinate {
     public double x,y,z,w;
     public Coordinate()
     {//create a coordinate with 0,0,0
