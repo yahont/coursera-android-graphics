@@ -4,5 +4,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bennyplo.android_mooc_graphics_3d.MainActivity">
+    tools:context="com.github.yahont.coursera_android_graphics.MainActivity">
 </androidx.constraintlayout.widget.ConstraintLayout>

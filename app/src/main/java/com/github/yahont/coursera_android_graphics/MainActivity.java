@@ -1,4 +1,4 @@
-package com.bennyplo.android_mooc_graphics_3d;
+package com.github.yahont.coursera_android_graphics;
 
 import androidx.appcompat.app.AppCompatActivity;
 

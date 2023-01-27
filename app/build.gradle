@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.bennyplo.android_mooc_graphics_3d"
+    namespace "com.github.yahont.coursera_android_graphics"
     compileSdkVersion 32
     defaultConfig {
-        applicationId "com.bennyplo.android_mooc_graphics_3d"
+        applicationId "com.github.yahont.coursera_android_graphics"
         minSdkVersion 15
         targetSdkVersion 32
         versionCode 1
