@@ -7,12 +7,21 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 public class Triangle {
-    private final String vertexShaderCode =
-            "attribute vec3 aVertexPosition;"+"uniform mat4 uMVPMatrix;varying vec4 vColor;" +
-                    "void main() {gl_Position = uMVPMatrix *vec4(aVertexPosition,1.0);" +
-                    "vColor=vec4(1.0,0.0,0.0,1.0);}";
-    private final String fragmentShaderCode = "precision mediump float;varying vec4 vColor; "+
-            "void main() {gl_FragColor = vColor;}";
+    private final String vertexShaderCode
+            = "attribute vec3 aVertexPosition;"
+            + "uniform mat4 uMVPMatrix;"
+            + "varying vec4 vColor;"
+            + "void main() {"
+            //+ "  gl_PointSize = 40.0;"
+            + "  gl_Position = uMVPMatrix *vec4(aVertexPosition,1.0);"
+            + "  vColor = vec4(1.0,0.0,0.0,1.0);"
+            + "}";
+    private final String fragmentShaderCode
+            = "precision mediump float;"
+            + "varying vec4 vColor;"
+            + "void main() {"
+            + "  gl_FragColor = vColor;"
+            + "}";
 
     private final FloatBuffer vertexBuffer;
     private final int mProgram;
@@ -60,5 +69,6 @@ public class Triangle {
                 GLES32.GL_FLOAT, false, vertexStride, vertexBuffer);
         // Draw the triangle
         GLES32.glDrawArrays(GLES32.GL_TRIANGLES, 0, vertexCount);
+        //GLES32.glDrawArrays(GLES32.GL_POINTS, 0, vertexCount);
     }
 }
